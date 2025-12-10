@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For You, My Safe Place 🤍</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --accent: #e879f9;
+      --accent-soft: rgba(232, 121, 249, 0.1);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --radius: 18px;
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1f2937 0, #020617 50%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px 16px 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 980px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    header h1 span {
+      color: var(--accent);
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px #22c55e;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    @media (min-width: 900px) {
+      .grid {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        align-items: start;
+      }
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(17, 24, 39, 0.98));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 18px 18px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background:
+        radial-gradient(circle at top left, rgba(232, 121, 249, 0.15), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.2), transparent 55%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .card small {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .feel-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 10px;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, border-color 0.08s ease, background 0.08s ease;
+    }
+
+    .btn span {
+      font-size: 1rem;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, #e879f9, #a855f7);
+      border-color: rgba(248, 250, 252, 0.4);
+      color: #0b1020;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.6);
+      border-color: rgba(248, 250, 252, 0.65);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .btn.primary:hover {
+      background: linear-gradient(135deg, #f472b6, #c4b5fd);
+    }
+
+    .message-box {
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .message-box strong {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .photos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .photo-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: #020617;
+      min-height: 140px;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.05);
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.03);
+      filter: saturate(1.2);
+    }
+
+    .photo-caption {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 6px 9px 7px;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .photo-caption strong {
+      color: var(--text);
+      font-size: 0.78rem;
+    }
+
+    .section-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      color: var(--muted);
+    }
+
+    .videos {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .video-card {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: #020617;
+    }
+
+    .video-card video,
+    .video-card iframe {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+    }
+
+    .video-meta {
+      padding: 6px 9px 8px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .reasons-list {
+      margin-top: 8px;
+      display: grid;
+      gap: 6px;
+      font-size: 0.85rem;
+    }
+
+    .reason {
+      padding: 7px 9px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .letters {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    details {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 7px 9px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    details[open] {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(232, 121, 249, 0.2);
+    }
+
+    summary {
+      list-style: none;
+      outline: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary span {
+      font-weight: 500;
+    }
+
+    details p {
+      margin-top: 6px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    footer span {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="pill">
+        <span class="pill-dot"></span>
+        This page is your safe space. You’re loved here.
+      </div>
+      <h1>For <span>My Favourite Person</span></h1>
+      <p>Whenever your heart feels heavy, come back here and remember how loved you are.</p>
+    </header>
+
+    <main class="grid">
+      <!-- LEFT SIDE: FEELINGS + REASONS -->
+      <section class="card">
+        <div class="card-inner">
+          <h2>How are you feeling today?</h2>
+          <small>Pick one. I’ve got you, no matter what. 🤍</small>
+
+          <div class="feel-buttons">
+            <button class="btn primary" data-mood="sad">
+              <span>💧</span> A little low
+            </button>
+            <button class="btn" data-mood="okay">
+              <span>🌥️</span> Just okay
+            </button>
+            <button class="btn" data-mood="happy">
+              <span>✨</span> Feeling good
+            </button>
+          </div>
+
+          <div class="message-box" id="moodMessage">
+            <strong>Hey Jan,</strong> this is your reminder that you are not alone with whatever you’re feeling right now.
+          </div>
+
+          <p class="subtitle">
+            Tap a mood and I’ll remind you of something true about you. 🤍
+          </p>
+
+          <hr style="border: none; border-top: 1px solid rgba(148,163,184,0.35); margin: 12px 0;" />
+
+          <div class="section-title-row">
+            <h2>Reasons I love you</h2>
+            <span class="chip">Scroll when you need proof</span>
+          </div>
+          <small>These are not all of them. Just a few I wrote down for you.</small>
+          <div class="reasons-list">
+            <div class="reason">You have a heart that cares for people even when you’re tired and hurting.</div>
+            <div class="reason">The way you laugh, smile, and get excited about little things makes my world softer.</div>
+            <div class="reason">You keep going, even on days you feel like shutting down. That strength is beautiful.</div>
+            <div class="reason">You make spaces feel like home just by being in them.</div>
+            <div class="reason">Being with you has shown me a softer, kinder side of myself that I didn’t know I had.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT SIDE: PHOTOS / VIDEOS / LETTERS -->
+      <section class="card">
+        <div class="card-inner">
+          <div class="section-title-row">
+            <h2>Our memories</h2>
+            <span class="chip">Photos</span>
+          </div>
+          <small>Little snapshots of us when your mind starts lying about how loved you are.</small>
+
+          <!-- PHOTO MEMORIES -->
+          <div class="photos-grid">
+            <!-- Replace src with your images -->
+            <div class="photo-card">
+              <img src="images/us-car-selfie.jpg" alt="Us together">
+              <div class="photo-caption">
+                <strong>That day together</strong><br/>
+                When your presence made me whole.
+              </div>
+            </div>
+            <div class="photo-card">
+              <img src="images/pleasure-cove.jpg" alt="Just You">
+              <div class="photo-caption">
+                <strong>Your laugh</strong><br/>
+                Proof that your happiness is what makes me loves you more.
+              </div>
+            </div>
+            <div class="photo-card">
+              <img src="images/her-pink-wall.jpg" alt="Cute selfie">
+              <div class="photo-caption">
+                <strong>Soft moment</strong><br/>
+                I looked at you and thought, “Yeah, that’s my person.”
+              </div>
+            </div>
+          </div>
+
+          <!-- VIDEO MEMORIES -->
+          <div style="margin-top: 14px;">
+            <div class="section-title-row">
+              <h2>Little video moments</h2>
+              <span class="chip">Hit play when you miss us</span>
+            </div>
+            <small>You can watch these when you need to feel us close again.</small>
+
+            <div class="videos">
+              <!-- Option 1: Direct video files -->
+              <div class="video-card">
+                <!-- Replace src with your actual video file path -->
+                <video controls>
+                  <source src="videos/cute-video.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <div class="video-meta">
+                  That silly little video that still makes me smile.
+                </div>
+              </div>
+
+              <!-- Option 2: YouTube (unlisted) embed -->
+              <!--
+              <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE"
+                        title="Our moment" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <div class="video-meta">
+                  Our memory, safely saved here for you.
+                </div>
+              </div>
+              -->
+            </div>
+          </div>
+
+          <!-- LETTERS -->
+          <div style="margin-top: 14px;">
+            <div class="section-title-row">
+              <h2>Letters for you</h2>
+              <span class="chip">Open when...</span>
+            </div>
+
+            <div class="letters">
+              <details>
+                <summary><span>Open when you feel like you’re “too much”</span></summary>
+                <p>
+                  You could never be too much for me. Your feelings are not a burden. They’re a language
+                  that tells me where you hurt and how I can hold you better. I want all of you — the loud,
+                  the quiet, the messy, the soft. Every version of you is wanted here.
+                </p>
+              </details>
+              <details>
+                <summary><span>Open when you feel alone</span></summary>
+                <p>
+                  Even on the days when I’m not beside you physically, I am holding you in my thoughts.
+                  Somewhere, I am rooting for you, proud of you for simply existing. You are not forgotten,
+                  not abandoned, not an afterthought. You are my person, and I’m not letting go.
+                </p>
+              </details>
+              <details>
+                <summary><span>Open when you’re doubting your worth</span></summary>
+                <p>
+                  Your worth isn’t measured by how productive you are, how happy you seem, or how “perfect”
+                  you appear. You are worthy because you are you — with your tender heart, your beautiful mind,
+                  and the way you love. Nothing can erase that. Not a bad day, not a bad week, not anything.
+                </p>
+              </details>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Made with <span>so much love</span> by someone who is not giving up on you. 🤍
+    </footer>
+  </div>
+
+  <script>
+    const moodMessage = document.getElementById("moodMessage");
+
+    const messages = {
+      sad: [
+        "You don’t have to pretend you’re okay with me. You are allowed to feel everything. I’m still here, still choosing you.",
+        "Even if today feels heavy, you are not a burden. Your feelings matter. Your heart matters. You matter.",
+        "Breathe. One small moment at a time. You’ve survived every hard day so far — and I’m cheering for you through this one too."
+      ],
+      okay: [
+        "It’s okay to be ‘just okay’. You don’t always have to be bright and shining. I still think you’re amazing, exactly as you are.",
+        "Thank you for existing, even on the neutral days. You being here still makes my life softer.",
+        "You don’t have to earn rest or love. You are allowed to pause, to just be, and to still be loved fully."
+      ],
+      happy: [
+        "I love seeing you happy. Your smile is my favourite view in the whole world.",
+        "I’m so proud of you for every little joy you allow yourself to feel. You deserve more of these moments.",
+        "Keep this feeling close. You are allowed to feel good without waiting for something to go wrong."
+      ]
+    };
+
+    document.querySelectorAll(".btn[data-mood]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const mood = btn.getAttribute("data-mood");
+        const list = messages[mood];
+        const random = list[Math.floor(Math.random() * list.length)];
+        moodMessage.innerHTML = "<strong>My love,</strong> " + random;
+      });
+    });
+  </script>
+</body>
+</html>
